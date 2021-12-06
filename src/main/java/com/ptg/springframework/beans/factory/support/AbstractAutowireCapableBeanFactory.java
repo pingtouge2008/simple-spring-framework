@@ -5,8 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.ptg.springframework.beans.BeansException;
 import com.ptg.springframework.beans.PropertyValue;
 import com.ptg.springframework.beans.PropertyValues;
-import com.ptg.springframework.beans.factory.DisposableBean;
-import com.ptg.springframework.beans.factory.InitializingBean;
+import com.ptg.springframework.beans.factory.*;
 import com.ptg.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import com.ptg.springframework.beans.factory.config.BeanDefinition;
 import com.ptg.springframework.beans.factory.config.BeanPostProcessor;
@@ -38,6 +37,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
+        invokeAwareMethods(beanName, bean);
         Object wrappedBean = applyBeanPostProcessBeforeInitialization(bean, beanName);
         // 待完成内容： invokeInitMethods(beanName, wrappedBean, beanDefinition);
         try {
@@ -47,6 +47,20 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
         wrappedBean = applyBeanPostProcessAfterInitialization(bean, beanName);
         return wrappedBean;
+    }
+
+    private void invokeAwareMethods(String beanName, Object bean) {
+        if (bean instanceof Aware) {
+            if (bean instanceof BeanFactoryAware) {
+                ((BeanFactoryAware) bean).setBeanFactory(this);
+            }
+            if (bean instanceof BeanClassLoaderAware) {
+                ((BeanClassLoaderAware) bean).setBeanClassLoader(getBeanClassLoader());
+            }
+            if (bean instanceof BeanNameAware) {
+                ((BeanNameAware) bean).setBeanName(beanName);
+            }
+        }
     }
 
     private void registerDisposableBeanIfNecessary(String beanName, Object bean, BeanDefinition beanDefinition) {
