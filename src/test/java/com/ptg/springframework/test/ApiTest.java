@@ -104,4 +104,23 @@ public class ApiTest {
         System.out.println(userService.getBeanFactory());
         System.out.println(userService.getApplicationContext());
     }
+
+    @Test
+    public void test_scope() {
+        // 1. 初始化 BeanFactory
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring_factory_bean.xml");
+        applicationContext.registerShutdownHook();
+        // 2. 获取 Bean 对象调用方法
+        UserService userService01 = applicationContext.getBean("userService", UserService.class);
+        UserService userService02 = applicationContext.getBean("userService", UserService.class);
+
+        System.out.println(userService01 == userService02);
+
+        userService01.queryUserInfo();
+    }
+
+    @Test
+    public void test_factory_bean() {
+
+    }
 }

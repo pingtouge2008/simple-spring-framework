@@ -1,6 +1,7 @@
 package com.ptg.springframework.bean;
 
 
+import com.ptg.springframework.bean.factorybean.IUserDao;
 import com.ptg.springframework.beans.BeansException;
 import com.ptg.springframework.beans.factory.*;
 import com.ptg.springframework.context.ApplicationContext;
@@ -15,10 +16,10 @@ public class UserService implements InitializingBean, DisposableBean,
     private String userId;
     private String company;
     private String location;
-    private UserDao userDao;
+    private IUserDao userDao;
 
     public void queryUserInfo() {
-        System.out.println(toString());
+        System.out.println(this);
         System.out.println("查询用户信息：" + userDao.queryUserName(userId));
     }
 
@@ -54,14 +55,6 @@ public class UserService implements InitializingBean, DisposableBean,
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public UserDao getUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
     }
 
     public ApplicationContext getApplicationContext() {
@@ -100,5 +93,13 @@ public class UserService implements InitializingBean, DisposableBean,
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public IUserDao getUserDao() {
+        return userDao;
     }
 }

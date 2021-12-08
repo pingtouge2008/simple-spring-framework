@@ -1,9 +1,11 @@
 package com.ptg.springframework.bean;
 
+import com.ptg.springframework.bean.factorybean.IUserDao;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserDao {
+public class UserDao implements IUserDao {
     private static Map<String, String> hashMap = new HashMap<>();
 
     public void initDataMethod(){
@@ -18,5 +20,6 @@ public class UserDao {
         hashMap.clear();
     }
 
+    @Override
     public String queryUserName(String uId) { return hashMap.get(uId); }
 }
