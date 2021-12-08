@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean class="com.ptg.springframework.test.event.EventTests$ContextRefreshedEventListener"/>
+    <bean class="com.ptg.springframework.test.event.EventTests$CustomEventListener"/>
+    <bean class="com.ptg.springframework.test.event.EventTests$ContextClosedEventListener"/>
+</beans>

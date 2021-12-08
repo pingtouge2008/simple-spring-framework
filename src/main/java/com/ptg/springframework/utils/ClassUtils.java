@@ -1,6 +1,9 @@
 package com.ptg.springframework.utils;
 
 public class ClassUtils {
+    /** The CGLIB class separator: {@code "$$"}. */
+    public static final String CGLIB_CLASS_SEPARATOR = "$$";
+
     public static ClassLoader getDefaultClassLoader() {
         ClassLoader cl = null;
         try {
@@ -13,5 +16,13 @@ public class ClassUtils {
             cl = ClassUtils.class.getClassLoader();
         }
         return cl;
+    }
+
+    public static boolean isCglibProxyClass(Class<?> clazz) {
+        return (clazz != null && isCglibProxyClassName(clazz.getName()));
+    }
+
+    public static boolean isCglibProxyClassName(String className) {
+        return (className != null && className.contains(CGLIB_CLASS_SEPARATOR));
     }
 }
