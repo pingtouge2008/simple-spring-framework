@@ -5,7 +5,7 @@ import com.ptg.springframework.beans.factory.BeanFactory;
 import com.ptg.springframework.beans.factory.BeanFactoryAware;
 import com.ptg.springframework.context.ApplicationEvent;
 import com.ptg.springframework.context.ApplicationListener;
-import com.ptg.springframework.utils.ClassUtils;
+import com.ptg.springframework.core.utils.ClassUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
