@@ -7,7 +7,7 @@ import com.ptg.springframework.beans.factory.*;
 import com.ptg.springframework.context.ApplicationContext;
 import com.ptg.springframework.context.ApplicationContextAware;
 
-public class UserService implements InitializingBean, DisposableBean,
+public class UserService implements IUserService, InitializingBean, DisposableBean,
         BeanNameAware, BeanClassLoaderAware, ApplicationContextAware, BeanFactoryAware {
 
     private ApplicationContext applicationContext;
@@ -18,9 +18,17 @@ public class UserService implements InitializingBean, DisposableBean,
     private String location;
     private IUserDao userDao;
 
+    public UserService() {
+    }
+
     public void queryUserInfo() {
-        System.out.println(this);
-        System.out.println("查询用户信息：" + userDao.queryUserName(userId));
+        System.out.println("queryUserInfo");
+        // System.out.println("查询用户信息：" + userDao.queryUserName(userId));
+    }
+
+    @Override
+    public void getById() {
+        System.out.println("getById");
     }
 
     @Override
