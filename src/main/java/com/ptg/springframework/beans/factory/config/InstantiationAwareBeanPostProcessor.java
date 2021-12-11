@@ -1,6 +1,7 @@
 package com.ptg.springframework.beans.factory.config;
 
 import com.ptg.springframework.beans.BeansException;
+import com.ptg.springframework.beans.PropertyValues;
 
 public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 
@@ -10,5 +11,10 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 
     default boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
         return true;
+    }
+
+    default PropertyValues postProcessPropertyValues(
+            PropertyValues pvs, Object bean, String beanName) throws BeansException {
+        return pvs;
     }
 }

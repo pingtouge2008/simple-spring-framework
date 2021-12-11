@@ -1,16 +1,22 @@
 package com.ptg.springframework.beans.factory.support;
 
+import cn.hutool.core.lang.Assert;
 import com.ptg.springframework.beans.BeansException;
 import com.ptg.springframework.beans.factory.FactoryBean;
 import com.ptg.springframework.beans.factory.config.BeanDefinition;
 import com.ptg.springframework.beans.factory.config.BeanPostProcessor;
 import com.ptg.springframework.beans.factory.config.ConfigurableBeanFactory;
 import com.ptg.springframework.util.ClassUtils;
+import com.ptg.springframework.util.StringValueResolver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {
+
+    /** String resolvers to apply e.g. to annotation attribute values. */
+    private final List<StringValueResolver> embeddedValueResolvers = new CopyOnWriteArrayList<>();
 
     /**
      * ClassLoader to resolve bean class names with, if necessary
@@ -18,7 +24,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
     private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     /** BeanPostProcessors to apply in createBean */
-    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
 
     @Override
     public Object getBean(String name) throws BeansException {
@@ -74,6 +80,26 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
      */
     public List<BeanPostProcessor> getBeanPostProcessors() {
         return this.beanPostProcessors;
+    }
+
+    @Override
+    public void addEmbeddedValueResolver(StringValueResolver valueResolver) {
+        Assert.notNull(valueResolver, "StringValueResolver must not be null");
+        this.embeddedValueResolvers.add(valueResolver);
+    }
+
+    public String resolveEmbeddedValue(String value) {
+        if (value == null) {
+            return null;
+        }
+        String result = value;
+        for (StringValueResolver resolver : this.embeddedValueResolvers) {
+            result = resolver.resolveStringValue(result);
+            if (result == null) {
+                return null;
+            }
+        }
+        return result;
     }
 
     @Override

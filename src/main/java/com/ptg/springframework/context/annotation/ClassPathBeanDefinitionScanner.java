@@ -1,6 +1,7 @@
 package com.ptg.springframework.context.annotation;
 
 import cn.hutool.core.util.StrUtil;
+import com.ptg.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import com.ptg.springframework.beans.factory.config.BeanDefinition;
 import com.ptg.springframework.beans.factory.support.BeanDefinitionRegistry;
 import com.ptg.springframework.stereotype.Component;
@@ -27,6 +28,10 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
                 registry.registerBeanDefinition(determineBeanName(beanDefinition), beanDefinition);
             }
         }
+
+        // 注册处理注解的 BeanPostProcessor（@Autowired、@Value）
+        registry.registerBeanDefinition("internalAutowiredAnnotationProcessor",
+                new BeanDefinition(AutowiredAnnotationBeanPostProcessor.class));
     }
 
     private String resolveBeanScope(BeanDefinition beanDefinition) {
