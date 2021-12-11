@@ -1,7 +1,7 @@
 package com.ptg.springframework.aop.framework;
 
 import com.ptg.springframework.aop.AdvisedSupport;
-import com.ptg.springframework.core.utils.ClassUtils;
+import com.ptg.springframework.util.ClassUtils;
 import org.aopalliance.intercept.MethodInterceptor;
 
 import java.lang.reflect.InvocationHandler;

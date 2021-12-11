@@ -5,7 +5,7 @@ import com.ptg.springframework.beans.factory.FactoryBean;
 import com.ptg.springframework.beans.factory.config.BeanDefinition;
 import com.ptg.springframework.beans.factory.config.BeanPostProcessor;
 import com.ptg.springframework.beans.factory.config.ConfigurableBeanFactory;
-import com.ptg.springframework.core.utils.ClassUtils;
+import com.ptg.springframework.util.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.List;

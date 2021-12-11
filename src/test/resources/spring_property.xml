@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean class="com.ptg.springframework.beans.factory.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:token.properties"/>
+    </bean>
+    <bean id="userService02" class="com.ptg.springframework.test.scan.UserService02">
+        <property name="token" value="${token}"/>
+    </bean>
+</beans>

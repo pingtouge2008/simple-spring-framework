@@ -1,7 +1,7 @@
 package com.ptg.springframework.core.io;
 
 import cn.hutool.core.lang.Assert;
-import com.ptg.springframework.core.utils.ClassUtils;
+import com.ptg.springframework.util.ClassUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

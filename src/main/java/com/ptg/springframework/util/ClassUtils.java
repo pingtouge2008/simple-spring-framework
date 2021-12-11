@@ -1,4 +1,4 @@
-package com.ptg.springframework.core.utils;
+package com.ptg.springframework.util;
 
 public class ClassUtils {
     /** The CGLIB class separator: {@code "$$"}. */
