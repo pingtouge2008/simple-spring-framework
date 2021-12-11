@@ -7,6 +7,15 @@ import org.aopalliance.intercept.MethodInterceptor;
  * 便在 Proxy 实现类进行使用。这和业务开发中包装入参是一个道理
  */
 public class AdvisedSupport {
+
+    /**
+     *
+     * 是否代理目标类? <br>
+     * true的话代理目标类(生成子类的方式) --> 使用CGLib深层代理 <br>
+     * false的话不代理目标类(代理目标类的接口) --> 使用JDK代理
+     */
+    private boolean proxyTargetClass = false;
+
     /**
      * 目标对象，在目标对象类中提供 Object 入参属性，以及获
      * 取目标类 TargetClass 信息。
@@ -47,5 +56,13 @@ public class AdvisedSupport {
 
     public void setMethodMatcher(MethodMatcher methodMatcher) {
         this.methodMatcher = methodMatcher;
+    }
+
+    public boolean isProxyTargetClass() {
+        return proxyTargetClass;
+    }
+
+    public void setProxyTargetClass(boolean proxyTargetClass) {
+        this.proxyTargetClass = proxyTargetClass;
     }
 }

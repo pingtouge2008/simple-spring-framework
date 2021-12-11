@@ -8,6 +8,7 @@ import com.ptg.springframework.aop.framework.JdkDynamicAopProxy;
 import com.ptg.springframework.bean.IUserService;
 import com.ptg.springframework.bean.UserService;
 import com.ptg.springframework.bean.interceptor.UserServiceInterceptor;
+import com.ptg.springframework.context.support.ClassPathXmlApplicationContext;
 import org.junit.Test;
 
 public class AopTest {
@@ -37,4 +38,11 @@ public class AopTest {
         proxy_cglib.getById();
     }
 
+    @Test
+    public void test_aop() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring_aop.xml");
+        IUserService userService = applicationContext.getBean("userService", IUserService.class);
+        userService.queryUserInfo();
+        userService.getById();
+    }
 }
