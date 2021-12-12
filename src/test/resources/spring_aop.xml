@@ -1,5 +1,7 @@
 <beans>
-    <bean id="userService" class="com.ptg.springframework.bean.UserService"/>
+    <bean id="userService" class="com.ptg.springframework.bean.UserService">
+        <property name="token" value="RejDlI78hu223Opo983Ds"/>
+    </bean>
     <bean class="com.ptg.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
 

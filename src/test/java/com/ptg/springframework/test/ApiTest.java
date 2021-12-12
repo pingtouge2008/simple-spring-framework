@@ -118,9 +118,4 @@ public class ApiTest {
 
         userService01.queryUserInfo();
     }
-
-    @Test
-    public void test_factory_bean() {
-
-    }
 }

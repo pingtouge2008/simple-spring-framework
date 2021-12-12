@@ -18,11 +18,14 @@ public class UserService implements IUserService, InitializingBean, DisposableBe
     private String location;
     private IUserDao userDao;
 
+    private String token;
+
     public UserService() {
     }
 
     public void queryUserInfo() {
         System.out.println("queryUserInfo");
+        System.out.println(this);
         // System.out.println("查询用户信息：" + userDao.queryUserName(userId));
     }
 
@@ -37,6 +40,7 @@ public class UserService implements IUserService, InitializingBean, DisposableBe
                 "userId='" + userId + '\'' +
                 ", company='" + company + '\'' +
                 ", location='" + location + '\'' +
+                ", token='" + token + '\'' +
                 ", userDao=" + userDao +
                 '}';
     }

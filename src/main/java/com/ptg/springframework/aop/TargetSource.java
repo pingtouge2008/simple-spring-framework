@@ -1,5 +1,7 @@
 package com.ptg.springframework.aop;
 
+import com.ptg.springframework.util.ClassUtils;
+
 public class TargetSource {
     private final Object target;
 
@@ -8,7 +10,9 @@ public class TargetSource {
     }
 
     public Class<?>[] getTargetInterfaces(){
-        return this.target.getClass().getInterfaces();
+        Class<?> clazz = this.target.getClass();
+        clazz = ClassUtils.isCglibProxyClass(clazz) ? clazz.getSuperclass() : clazz;
+        return clazz.getInterfaces();
     }
 
     public Class<?> getTargetClass() {
