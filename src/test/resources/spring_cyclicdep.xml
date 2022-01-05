@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="husband" class="com.ptg.springframework.cyclicdep.bean.Husband">
+        <property name="wife" ref="wife"/>
+    </bean>
+
+    <bean id="wife" class="com.ptg.springframework.cyclicdep.bean.Wife">
+        <property name="husband" ref="husband"/>
+        <property name="mother" ref="husbandMother"/>
+    </bean>
+
+    <bean id="husbandMother" class="com.ptg.springframework.cyclicdep.bean.HusbandMother"/>
+
+    <!-- AOP 配置，验证三级缓存 -->
+    <bean class="com.ptg.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="beforeAdvice" class="com.ptg.springframework.cyclicdep.bean.SpouseAdvice"/>
+
+    <bean id="methodInterceptor" class="com.ptg.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+
+    <bean id="pointcutAdvisor" class="com.ptg.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* com.ptg.springframework.cyclicdep.bean.Wife.*(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
+
+</beans>
